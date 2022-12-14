@@ -13,7 +13,7 @@ const detailedInfoDiv = document.getElementById("image-container");
 const filterBtnContainer = document.getElementById("filterBtnContainer");
 let featuredCharacter;
 let clientSideRealtimeData;
-//I try using a foreach loop to create listBtns and make them variables pushed into toggleBtnsArray. Which are accessible by the global scope
+// using a foreach loop to create listBtns 
 const toggleBtnsToCreate = [
   "votesFeaturedToggleBtn",
   "addFeaturedToggleBtn",
@@ -86,9 +86,6 @@ function appendDisplayNames(data) {
   cBAnchor.addEventListener("click", () => displayClickedChar(data));
 }
 
-// 2. When the character in the `div#character-bar` is clicked, display the
-//    character's details in the `div#detailed-info`.
-
 function loadFirstChild(data) {
   detailBoxName.textContent = data[0].name;
   detailBoxImage.src = data[0].image;
@@ -105,9 +102,6 @@ function displayClickedChar(data) {
   return featuredCharacter;
 }
 
-// 3. When the `form#votes-form` is submitted, add the number of votes from
-//    the input field to the character displayed in the `div#detailed-info`. **No
-//    persistence is needed**.
 
 function addVotes(event) {
   event.preventDefault();
@@ -122,7 +116,7 @@ function addVotes(event) {
     id: `${featuredCharacter.id}`,
     votes: `${newVoteCount}`
   };
-  //update clicked votes without refresh because it's using old data
+ 
   updateVotesToDB(updateData);
   updateHeaderDataAfterVotesChange(newVoteCount);
   event.target.reset();
@@ -485,13 +479,11 @@ function reEnableBtns() {
 let firstLetterArrayRemoveDuplicates = [];
 let filterFullNameArray = [];
 
-//\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\
-//\\////\\////\\////\\////            FILTER BY FIRST LETTER FUNCTIONS          ////\\////\\////\\////\\//
-//\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\////\\
+//Filter
 
 function filterByFirstLetter(letterToFilter) {
-  //match letter to full name and store index when name match
-  const filterMatchAtIndex = []; //reseting array to hold nothing before being filled
+
+  const filterMatchAtIndex = []; 
   filterFullNameArray.filter((name, index) => {
     ///CHANGE ALL TO UPPERCASE
     if (name.charAt(0).toUpperCase() === `${letterToFilter.toUpperCase()}`) {
@@ -507,9 +499,7 @@ function filterByFirstLetter(letterToFilter) {
   filterIDAtIndex.forEach((element) => filterIDFromIndex.push(element.id));
   //send all matches to float left
   floatMatchingIDsLeft(filterIDFromIndex);
-  //since this is only clientside visual we just need to manipulate the HTML order of the cards, so if they delete the newArray will just remove from html but delete by clientsidedataArray's index so we dont need to make more splice codes
 }
-//create array to iterate through using clientdatasidedata, pulling first letters by charAt(), and pushing to an array
 function createFirstLetterArray(clientSideRealtimeData) {
   createFullNameArray();
   let filterFirstLetterArray = [];
